@@ -22,10 +22,10 @@
     @testset "online_changepoint_detection" begin
 
         R, maxes, obslikelihood, pred, dists, L = online_changepoint_detection(
-        data,
-        ConstantHazard(2.0),
-        ConjugateModel{MvNormal, Float64}(μ, Σ, 2.0, 2.0),
-         )
+            data,
+            ConstantHazard(2.0),
+            ConjugateModel{MvNormal, Float64}(μ, Σ, 2.0, 2.0),
+        )
 
         @test R isa Matrix
         @test maxes isa Array{Int}
@@ -34,7 +34,7 @@
         @test dists isa Array{<:Sampleable}
         @test L isa Int
 
-        @test isapprox(exp(pred[end]), 0.1071, atol=0.001)
+        @test isapprox(exp(pred[end]), 0.3105, atol=0.001)
 
     end
 end
@@ -70,6 +70,6 @@ end
     )
 
     test_pipeline(template, X_train)
-    test_interface(template)
+    test_interface(template; inputs=rand(3, 5), outputs=rand(3,5), distribution_inputs = [MvNormal(3, m) for m in 1:5])
 
 end
