@@ -67,7 +67,9 @@ function Models.fit(
     outputs = NamedDimsArray{(:variates, :observations)}(outputs)
     inputs = NamedDimsArray{(:features, :observations)}(inputs)
 
-    @assert size(outputs, :variates) == m.prior.dim
+    if !(size(outputs, :variates) == m.prior.dim)
+        error("Incorrect dimensions in outputs. Expected $(m.prior.dim), got $(size(outputs, :variates))")
+    end
 
     out = online_changepoint_detection(outputs', hazard(m), ConjugateModel{L, T}(m.prior))
     R, maxes, obsmodel, prob, preddist, N = out
