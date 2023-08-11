@@ -70,6 +70,11 @@ end
     )
 
     test_pipeline(template, X_train)
-    test_interface(template; inputs=rand(3, 5), outputs=rand(3,5), distribution_inputs = [MvNormal(3, m) for m in 1:5])
+    test_interface(
+        template;
+        inputs=rand(3, 5),
+        outputs=rand(3,5),
+        distribution_inputs = [MvNormal(LinearAlgebra.Diagonal(FillArrays.Fill(m ^ 2, 3))) for m in 1:5]
+    )
 
 end

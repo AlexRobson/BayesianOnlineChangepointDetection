@@ -9,6 +9,7 @@ using BOCP: fit, predict
 using BOCP: condition
 using Distributions
 using LinearAlgebra
+using FillArrays
 using NamedDims
 using StableRNGs
 using Models
