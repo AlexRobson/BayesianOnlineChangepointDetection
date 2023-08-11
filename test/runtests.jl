@@ -10,11 +10,11 @@ using BOCP: condition
 using Distributions
 using LinearAlgebra
 using NamedDims
-using Random
+using StableRNGs
 using Models
 using Models.TestUtils: test_interface
 
-Random.seed!(1)
+StableRNGs.seed!(1)
 
 include("util.jl")
 include("hazard.jl")
