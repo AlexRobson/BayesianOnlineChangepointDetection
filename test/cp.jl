@@ -19,9 +19,9 @@
 
     end
 
-    @testset "online_changepoint_detection" begin
+    @testset "offline_changepoint_detection" begin
 
-        R, maxes, obslikelihood, pred, dists, L = online_changepoint_detection(
+        R, maxes, obslikelihood, pred, dists, L = offline_changepoint_detection(
             data,
             ConstantHazard(2.0),
             ConjugateModel{MvNormal, Float64}(μ, Σ, 2.0, 2.0),

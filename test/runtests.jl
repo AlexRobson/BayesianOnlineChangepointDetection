@@ -4,7 +4,7 @@ using Test
 using BOCP: ChangePointModel, ChangePointTemplate
 using BOCP: ConjugateModel
 using ConjugatePriors
-using BOCP: ConstantHazard, predprob, online_changepoint_detection
+using BOCP: ConstantHazard, predprob, offline_changepoint_detection
 using BOCP: fit, predict
 using BOCP: condition
 using Distributions

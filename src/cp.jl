@@ -71,7 +71,7 @@ function Models.fit(
         error("Incorrect dimensions in outputs. Expected $(m.prior.dim), got $(size(outputs, :variates))")
     end
 
-    out = online_changepoint_detection(outputs', hazard(m), ConjugateModel{L, T}(m.prior))
+    out = offline_changepoint_detection(outputs', hazard(m), ConjugateModel{L, T}(m.prior))
     R, maxes, obsmodel, prob, preddist, N = out
     return ChangePointModel(obsmodel, hazard(m), R, N)
 
@@ -120,7 +120,7 @@ function Models.predict(
 end
 
 # TODO: Impplement max_run_length
-function online_changepoint_detection(
+function offline_changepoint_detection(
     data,
     hazard_func,
     obsmodel::ConjugateModel;
