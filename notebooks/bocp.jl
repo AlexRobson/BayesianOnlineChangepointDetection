@@ -23,10 +23,6 @@ y2 = rand(d2, length(t2))
 y3 = rand(d1, length(t3))
 y = [y1; y2; y3]
 
-plot(t, y, color = :blue)
-plot!(t1, repeat([μ1], length(t1)), ribbon = σ1, linestyle = :dash, color = :lightblue)
-plot!(t2, repeat([μ2], length(t2)), ribbon = σ2, linestyle = :dash, color = :lightblue)
-plot!(t3, repeat([μ1], length(t3)), ribbon = σ1, linestyle = :dash, color = :lightblue)
 
 # Want to identify the changepoint 
 
@@ -37,30 +33,6 @@ plot!(t3, repeat([μ1], length(t3)), ribbon = σ1, linestyle = :dash, color = :l
 pri = NormalInverseChisq(μ_0, σ_0, 100., 100.)
 
 x = reduce(hcat, [collect(rand(convert(NormalInverseGamma, pri))) for _ in 1:1000])
-
-
-combined_plot = plot(
-    histogram(x[1,:], normalize = true, xlabel = "μ", label = :none),
-    histogram(x[2,:], normalize = true, xlabel = "σ", label = :none), 
-    layout=(1, 2)
-)
-
-display(combined_plot)
-
-posterior(pri, Normal, 5)
-
-# Sufficient Statistics
-
-r1 = rand(5,)
-w = ones(5,)
-
-display(suffstats(Normal, r1, w))
-    
-display(sum(r1))
-display(mean(r1))
-display(sum((r1 .- mean(r1)).^2))
-
-posterior(pri, suffstats(Normal, r1))
 
 abstract type AbstractHazard end
 
@@ -129,14 +101,24 @@ function bocpd(data, Hazard::AbstractHazard)
 end
 
 
-# Data and hazard function
-data = randn(100)
 hazard = ConstantHazard(100)
 
 R = bocpd(y, hazard)
 
-heatmap(R)
+# Create the key plots
 
-plot(mapslices(argmax, R, dims = 1)')
+ 
+p0 = plot(t, y, color = :blue)
+plot!(p0, t1, repeat([μ1], length(t1)), ribbon = σ1, linestyle = :dash, color = :lightblue)
+plot!(p0, t2, repeat([μ2], length(t2)), ribbon = σ2, linestyle = :dash, color = :lightblue)
+plot!(p0, t3, repeat([μ1], length(t3)), ribbon = σ1, linestyle = :dash, color = :lightblue)
+
+p1 = heatmap(R)
+
+p2 = plot(mapslices(argmax, R, dims = 1)')
+
+f = plot(p0, p1, p2,layout = (3,1))
+
+savefig(f, "bocp.png")
 
 
