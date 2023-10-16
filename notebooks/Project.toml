@@ -1,0 +1,4 @@
+[deps]
+ConjugatePriors = "1624bea9-42b1-5fc1-afd3-e96f729c8d6c"
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+Pluto = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
