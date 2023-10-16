@@ -1,11 +1,11 @@
 # Bayesian Online ChangePoint
 
-Implements BOCP. 
+An implementation of [BOCP](https://arxiv.org/abs/0710.3742) in Julia.  
 
 This is presently under construction. The intention is to take in a datastream and infer the changepoints and run lengths. 
 For example, producing plots like the following to identify change points in a time series. 
 
-![BOCP](./notebooks/bocp.png, "BOCP")
+![BOCP](./notebooks/bocp.png)
 
 
 The interface is likely to change, however, at present the following works. 
